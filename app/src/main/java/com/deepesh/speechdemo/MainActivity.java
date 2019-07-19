@@ -80,16 +80,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         txt=(TextView)findViewById(R.id.textView);
         btn=(Button)findViewById(R.id.buttonSpeek);
-        //sMgr = (SensorManager) getSystemService(SENSOR_SERVICE);
-        //sensor = sMgr.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        //sMgr.registerListener(this, sensor, sMgr.SENSOR_DELAY_NORMAL);
 
         if (Build.VERSION.SDK_INT >= 23) {
             // Pain in A$$ Marshmallow+ Permission APIs
             checkAndRequestPermissions();
 
         } else {
-            // Pre-Marshmallow
             setUpView();
         }
     }
@@ -125,7 +121,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
     }
 
-    //Checking permission & Grant Permission at run time
     private  boolean checkAndRequestPermissions() {
         int permissionSendMessage = ContextCompat.checkSelfPermission(this, android.Manifest.permission.RECORD_AUDIO);
         int internet = ContextCompat.checkSelfPermission(this, android.Manifest.permission.INTERNET);
@@ -201,14 +196,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(resultList !=null && resultList.size()>0){
             String output=resultList.get(0);
             txt.setText(output);
-            /*//In case of Empty Output
-            if(output.toLowerCase().isEmpty()==true){
-                tts.speak("Sorry ! Speak Again !",TextToSpeech.QUEUE_FLUSH,null);
-
-            }*/
-
-            //for Setting
-            //WIFI
             if((output.toLowerCase().contains("wi-fi")&&output.toLowerCase().contains("setting"))||(output.toLowerCase().contains("wifi")&&output.toLowerCase().contains("setting"))){
                 //tts.speak("yes..! no doubt!",TextToSpeech.QUEUE_FLUSH,null);
                 Intent intent=new Intent(Settings.ACTION_WIFI_SETTINGS);
@@ -253,7 +240,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-            //Location
+            
             if((output.toLowerCase().contains("turn")&&output.toLowerCase().contains("on")&&output.toLowerCase().contains("gps"))||(output.toLowerCase().contains("start")&&output.toLowerCase().contains("location"))||(output.toLowerCase().contains("enable")&&output.toLowerCase().contains("gps"))||(output.toLowerCase().contains("start")&&output.toLowerCase().contains("gps"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("location"))||(output.toLowerCase().contains("enable")&&output.toLowerCase().contains("location"))){
                 LocationManager locationManager=(LocationManager)getSystemService(Context.LOCATION_SERVICE);
                 boolean locationStatus=locationManager.isProviderEnabled(locationManager.GPS_PROVIDER);//make sure Access_file_location declare in manifest file
@@ -266,7 +253,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-            //Current Time
+            
             if(output.toLowerCase().contains("current")&&output.toLowerCase().contains("time")) {
                 //String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                 Calendar c = Calendar.getInstance();
@@ -280,7 +267,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 txt.setText(time);
             }
 
-            //Current date
             if(output.toLowerCase().contains("current")&&output.toLowerCase().contains("date")) {
                 //String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
                 Calendar c = Calendar.getInstance();
@@ -293,7 +279,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 txt.setText(date);
             }
 
-            //Current Time & Location
             if(output.toLowerCase().contains("current")&&output.toLowerCase().contains("time")&&output.toLowerCase().contains("date")) {
                 String currentDateTimeString = DateFormat.getDateTimeInstance().format(new Date());
 
@@ -302,7 +287,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-            //Current Location
             if(output.toLowerCase().contains("current")&&output.toLowerCase().contains("location")){
 
                 lMgr = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -314,7 +298,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
             }
-            //play my Favorite song
+            
             if((output.toLowerCase().contains("play")&&output.toLowerCase().contains("favourite")&&output.toLowerCase().contains("song"))||(output.toLowerCase().contains("play")&&output.toLowerCase().contains("favorite")&&output.toLowerCase().contains("song"))||(output.toLowerCase().contains("favourite")&&output.toLowerCase().contains("song"))||(output.toLowerCase().contains("favorite")&&output.toLowerCase().contains("song"))){
                 Intent intent = new Intent();
                 intent.setAction(android.content.Intent.ACTION_VIEW);//ACTION_VIEW- use to open any types of file
@@ -359,8 +343,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(intent);
             }
 
-            ///OPEN APPLICATION
-            //Whatsapp
             if((output.toLowerCase().contains("open")&&output.toLowerCase().contains("whatsapp"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("whats")&&output.toLowerCase().contains("up"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("what's")&&output.toLowerCase().contains("up"))){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -370,7 +352,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Playstore
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("play")&&output.toLowerCase().contains("store")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -380,7 +362,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //ShareIt
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("Shareit")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -390,7 +372,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Browser
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("browser")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -400,7 +382,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Google Chrome
             if((output.toLowerCase().contains("open")&&output.toLowerCase().contains("google")&&output.toLowerCase().contains("chrome"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("chrome"))){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -410,7 +391,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Contact
+            
             if((output.toLowerCase().contains("open")&&output.toLowerCase().contains("contact")&&output.toLowerCase().contains("list"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("contact"))){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -420,7 +401,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Gallery
+            
             if((output.toLowerCase().contains("open")&&output.toLowerCase().contains("gallery"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("photos"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("videos"))||(output.toLowerCase().contains("open")&&output.toLowerCase().contains("photo")&&output.toLowerCase().contains("videos"))){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -430,7 +411,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Gmail
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("gmail")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -450,7 +431,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Saavan
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("saavn")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -460,7 +441,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Youtube
+            
             if((output.toLowerCase().contains("open")&&output.toLowerCase().contains("youtube"))){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -480,7 +461,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Google drive
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("google")&&output.toLowerCase().contains("drive")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -490,7 +471,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 }
             }
-            //Calculator
+            
             if(output.toLowerCase().contains("open")&&output.toLowerCase().contains("calculator")){
                 Context ctx=MainActivity.this; // or you can replace **'this'** with your **ActivityName.this**
                 try {
@@ -502,8 +483,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-            //for Calling
-            //meeee
+            
             if((output.toLowerCase().contains("call")&&output.toLowerCase().contains("monu"))||(output.toLowerCase().contains("call")&&output.toLowerCase().contains("deepesh"))||(output.toLowerCase().contains("call")&&output.toLowerCase().contains("boss"))){
                 tts.speak("Wait..!",TextToSpeech.QUEUE_FLUSH,null);
                 Intent i=new Intent(Intent.ACTION_CALL);
@@ -516,7 +496,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 }
             }
 
-            //Family
+            
             if(output.toLowerCase().contains("call")&&output.toLowerCase().contains("mummy")){
                 tts.speak("Wait..!",TextToSpeech.QUEUE_FLUSH,null);
                 Intent i=new Intent(Intent.ACTION_CALL);
@@ -589,15 +569,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
 
-
-            //how to Grant permission
+            
             if(output.toLowerCase().contains("grant")&&output.toLowerCase().contains("permission")){
                 tts.speak("Follow me !! Open setting in your phone ! ! go to App ! ! find kiki ! ! and look carefully ! ! make sure everythings is enabled ! !",TextToSpeech.QUEUE_FLUSH,null);
 
             }
 
-            //introduction
-            //Introduction
+            
             if((output.toLowerCase().contains("hi")&&output.toLowerCase().contains("kiki"))||(output.toLowerCase().contains("hey")&&output.toLowerCase().contains("kiki"))){
                 tts.speak("hi ! how can i help you ?",TextToSpeech.QUEUE_FLUSH,null);
             }
@@ -632,7 +610,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-            //monu
+            
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("monu"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("monu"))||(output.toLowerCase().contains("monu")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("monu")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("monu")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("monu")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes ! he is my boss!",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -646,8 +624,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-
-            ////Anshul
+            
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("anshul"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("anshul"))||(output.toLowerCase().contains("anshul")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("anshul")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("anshul")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("anshul")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes..! i know Anshul!",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -657,7 +634,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-            ////Ankush
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("ankush"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("ankush"))||(output.toLowerCase().contains("ankush")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("ankush")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("ankush")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("ankush")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes..! i know Ankush!",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -667,7 +643,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-            ////Sunidhi
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("sunidhi"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("sunidhi"))||(output.toLowerCase().contains("sunidhi")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("sunidhi")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("sunidhi")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("sunidhi")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes..! i know Sunidhi!",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -677,8 +652,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-
-            //Anshul , ankush sunidhi call
             if(output.toLowerCase().contains("call")&&output.toLowerCase().contains("anshul")){
                 tts.speak("Wait..!",TextToSpeech.QUEUE_FLUSH,null);
                 Intent i=new Intent(Intent.ACTION_CALL);
@@ -725,8 +698,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
 
 
-            //introduction to sumit
-            //sumit
+            
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("sumit"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("sumit"))||(output.toLowerCase().contains("sumit")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("sumit")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("sumit")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("sumit")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes..! very nicely!  he is very naughty boy!",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -753,8 +725,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
             }
 
-            //introduction to Mehak
-            //mehak ji
+            
             if((output.toLowerCase().contains("know")&&output.toLowerCase().contains("naina"))||(output.toLowerCase().contains("no")&&output.toLowerCase().contains("naina"))||(output.toLowerCase().contains("mehak")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("mehak")&&output.toLowerCase().contains("janti"))||(output.toLowerCase().contains("mehak")&&output.toLowerCase().contains("pehchante"))||(output.toLowerCase().contains("mehak")&&output.toLowerCase().contains("pehchanti"))){
                 tts.speak("yes..! Mehak is my best Friend !  She is very Cute girl ! she look like ! ! angel !",TextToSpeech.QUEUE_FLUSH,null);
 
@@ -772,7 +743,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 tts.speak("my best friend is naina ! she is very cute !",TextToSpeech.QUEUE_FLUSH,null);
 
             }
-            //Sumit & mehak Call
+            
             if((output.toLowerCase().contains("call")&&output.toLowerCase().contains("sumit"))||(output.toLowerCase().contains("call")&&output.toLowerCase().contains("chachu"))||(output.toLowerCase().contains("call")&&output.toLowerCase().contains("chachi"))){
                 tts.speak("Wait..!",TextToSpeech.QUEUE_FLUSH,null);
                 Intent i=new Intent(Intent.ACTION_CALL);
@@ -826,9 +797,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onDestroy();
         //sMgr.unregisterListener(this);
     }
-
-    /// Current Location
-
 
     @Override
     public void onLocationChanged(Location location) {
